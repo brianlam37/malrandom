@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Manga from './components/Manga';
 import MangaList from './components/MangaList';
-import {Button, ButtonGroup, Tabs, Nav, Navbar, Tab} from 'react-bootstrap';
+import {Button, ButtonGroup, Nav, Navbar} from 'react-bootstrap';
 const baseUrl = '/api/lists';
 function App() {
     const [manga,setManga] = useState();
@@ -122,8 +122,8 @@ function App() {
 
     return (
         <>
-            <div className = 'container-fluid' className = 'betterwork'>
-                <Navbar bg='dark' expand='lg' className = 'betterwork'>
+            <div className = 'container-fluid'>
+                <Navbar bg='dark' expand='lg'>
                     <Nav className='mr-auto'>
                     <ButtonGroup className='mr-2'>
                         <Button onClick = {handleSOL} variant= 'secondary'>{buttonLabel}</Button>
