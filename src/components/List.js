@@ -72,19 +72,7 @@ const List = ({ type }) => {
 					setLoading(false);
 				}
 			}
-			// axios
-			// 	.get(
-			// 		`https://api.jikan.moe/v3/user/${malUser}/${type}list/pt${lastLetter}`
-			// 	)
-			// 	.then((response) => {
-			// 		if (mounted) {
-			// 			setList(response.data[type]);
-			// 			setLoading(false);
-			// 		}
-			// 	})
-			// 	.catch((err) => {
-			// 		console.log(err);
-			// 	});
+
 			return () => (mounted = false);
 		};
 		asyncEffect();
@@ -110,7 +98,11 @@ const List = ({ type }) => {
 		} else {
 			return (
 				<>
+					<h2 id='list-title'>
+						{type === 'manga' ? 'Manga' : 'Anime'} List
+					</h2>
 					<a
+						id='list-link'
 						href={`https://myanimelist.net/${type}list/${localStorage.getItem(
 							'malRandomUser'
 						)}`}

@@ -73,10 +73,6 @@ const ListItem = ({ item, type, current, handleClick, location }) => {
 		);
 	};
 	const handleButtonText = () => {
-		if (current === item.mal_id.toString()) {
-			console.log(type, current, item.mal_id);
-		}
-
 		if (type === 'manga' && current === item.mal_id.toString()) {
 			return 'Current';
 		} else if (type === 'anime' && current === item.mal_id.toString()) {

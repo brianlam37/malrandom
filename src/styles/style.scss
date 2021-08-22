@@ -173,6 +173,7 @@ body {
 		background-color: #ccc;
 		box-shadow: none;
 	}
+	margin-bottom: 10px;
 }
 .page-title {
 	margin-top: 10px;
@@ -282,34 +283,31 @@ body {
 	}
 }
 
-.notification {
-	margin: 5px;
-	padding: 5px;
-	border-radius: 5px;
-}
-.bad {
-	border: 1px coral solid;
-	background-color: lightcoral !important;
-	color: coral !important;
-}
-
-.good {
-	border: 1px green solid;
-	background-color: lightgreen !important;
-	color: green !important;
-}
-
 .lists {
 	display: grid;
 	margin: 10px;
-	row-gap: 10px;
 	grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+	.dark-button {
+		a {
+			display: block;
+		}
+	}
+}
+#list-title {
+	text-align: center;
+	margin-top: 25px;
+}
+#list-link {
+	color: #fff;
+	margin-left: 15px;
+	font-size: 1.1em;
 }
 .list-item {
 	justify-self: center;
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 10px;
 	.list-item-info {
 		a {
 			font-weight: bold;
@@ -455,4 +453,8 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 10px;
+}
+
+.width100 {
+	width: 100%;
 }

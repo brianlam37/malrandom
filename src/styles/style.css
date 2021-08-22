@@ -221,6 +221,7 @@ body {
   padding: 5px 30px;
   border-radius: 5px;
   outline: none;
+  margin-bottom: 10px;
 }
 
 .dark-button a {
@@ -391,31 +392,27 @@ body {
   font-size: 48px;
 }
 
-.notification {
-  margin: 5px;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.bad {
-  border: 1px coral solid;
-  background-color: lightcoral !important;
-  color: coral !important;
-}
-
-.good {
-  border: 1px green solid;
-  background-color: lightgreen !important;
-  color: green !important;
-}
-
 .lists {
   display: -ms-grid;
   display: grid;
   margin: 10px;
-  row-gap: 10px;
   -ms-grid-columns: (minmax(225px, 1fr))[auto-fill];
       grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+}
+
+.lists .dark-button a {
+  display: block;
+}
+
+#list-title {
+  text-align: center;
+  margin-top: 25px;
+}
+
+#list-link {
+  color: #fff;
+  margin-left: 15px;
+  font-size: 1.1em;
 }
 
 .list-item {
@@ -428,6 +425,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin-bottom: 10px;
   width: 225px;
 }
 
@@ -650,5 +648,9 @@ body {
       -ms-flex-align: center;
           align-items: center;
   margin-bottom: 10px;
+}
+
+.width100 {
+  width: 100%;
 }
 /*# sourceMappingURL=style.css.map */
