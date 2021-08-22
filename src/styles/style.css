@@ -663,6 +663,10 @@ body {
   margin-bottom: 10px;
 }
 
+.currentRandomColumn .dark-button {
+  padding: 5px 30px;
+}
+
 .width100 {
   width: 100%;
 }

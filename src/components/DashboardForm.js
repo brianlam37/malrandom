@@ -41,6 +41,7 @@ const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 			setAnimeData(null);
 			clearTimeout(timeOut.current);
 			setUserData(searchData);
+			setSearchLoader(false);
 		} else {
 			setShow(true);
 			clearTimeout(timeOut.current);
