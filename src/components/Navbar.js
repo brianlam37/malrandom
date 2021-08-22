@@ -16,10 +16,10 @@ const Navbar = () => {
 							Lists <i className='fa fa-caret-down'></i>
 						</div>
 						<div id='dropdown-container'>
-							<Link className='nav-text' to='/list/anime'>
+							<Link className='nav-text' to='/list/anime/1'>
 								Anime
 							</Link>
-							<Link className='nav-text' to='/list/manga'>
+							<Link className='nav-text' to='/list/manga/1'>
 								Manga
 							</Link>
 						</div>

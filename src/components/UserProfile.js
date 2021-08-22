@@ -24,10 +24,10 @@ const UserProfile = ({ data, isLoading, type }) => {
 			return (
 				<div className='lists'>
 					<button className='dark-button'>
-						<Link to='/list/anime'>Anime List</Link>
+						<Link to='/list/anime/1'>Anime List</Link>
 					</button>
 					<button className='dark-button'>
-						<Link to='/list/manga'>Manga List</Link>
+						<Link to='/list/manga/1'>Manga List</Link>
 					</button>
 				</div>
 			);

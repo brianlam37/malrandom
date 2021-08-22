@@ -1,12 +1,12 @@
 import React from 'react';
-const ListItem = ({ item, type, current, handleClick, location }) => {
-	const status = (type, item) => {
+const ListItem = ({ data, type, current, handleClick, location }) => {
+	const status = (type, data) => {
 		if (location === 'dashboard') {
-			return item.status;
+			return data.status;
 		}
 		switch (type) {
 			case 'manga': {
-				switch (item.publishing_status) {
+				switch (data.publishing_status) {
 					case 1: {
 						return 'Publishing';
 					}
@@ -21,7 +21,7 @@ const ListItem = ({ item, type, current, handleClick, location }) => {
 				}
 			}
 			default: {
-				switch (item.airing_status) {
+				switch (data.airing_status) {
 					case 1: {
 						return 'Airing';
 					}
@@ -44,9 +44,9 @@ const ListItem = ({ item, type, current, handleClick, location }) => {
 				return (
 					<>
 						{type === 'manga' ? (
-							<> Chapters: {item.chapters} </>
+							<> Chapters: {data.chapters} </>
 						) : (
-							<> Episodes: {item.episodes} </>
+							<> Episodes: {data.episodes} </>
 						)}
 					</>
 				);
@@ -54,9 +54,9 @@ const ListItem = ({ item, type, current, handleClick, location }) => {
 			return (
 				<>
 					{type === 'manga' ? (
-						<> Chapters: {item.total_chapters} </>
+						<> Chapters: {data.total_chapters} </>
 					) : (
-						<> Episodes: {item.total_episodes} </>
+						<> Episodes: {data.total_episodes} </>
 					)}
 				</>
 			);
@@ -64,18 +64,18 @@ const ListItem = ({ item, type, current, handleClick, location }) => {
 		return (
 			<div className='list-item-status'>
 				<div>
-					{status(type, item)}
+					{status(type, data)}
 					<div className='dot'></div>
-					{item.type}
+					{data.type}
 				</div>
 				<div className='total'>{itemLocation()}</div>
 			</div>
 		);
 	};
 	const handleButtonText = () => {
-		if (type === 'manga' && current === item.mal_id.toString()) {
+		if (type === 'manga' && current === data.mal_id.toString()) {
 			return 'Current';
-		} else if (type === 'anime' && current === item.mal_id.toString()) {
+		} else if (type === 'anime' && current === data.mal_id.toString()) {
 			return 'Current';
 		} else {
 			return 'Set Current';
@@ -85,20 +85,19 @@ const ListItem = ({ item, type, current, handleClick, location }) => {
 		return (
 			<button
 				className='dark-button current'
-				onClick={() => handleClick(item)}
+				onClick={() => handleClick(data)}
 			>
 				{handleButtonText()}
 			</button>
 		);
 	};
-
 	return (
 		<div className='list-item'>
-			<img src={item.image_url} alt='anime/manga cover' />
+			<img src={data.image_url} alt='anime/manga cover' />
 			{drawButton()}
 			<div className='list-item-info'>
-				<a target='_blank' rel='noopener noreferrer' href={item.url}>
-					{item.title}
+				<a target='_blank' rel='noopener noreferrer' href={data.url}>
+					{data.title}
 				</a>
 			</div>
 			{numberOf()}

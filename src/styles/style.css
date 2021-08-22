@@ -23,14 +23,12 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: 100vh;
+  height: 80vh;
 }
 
 .home .hero {
   grid-area: hero;
-  background: url("/assets/Hero.jpg") no-repeat center;
   background-blend-mode: darken;
-  background-color: rgba(18, 27, 80, 0.6);
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -218,7 +216,6 @@ body {
   background-color: #070b25;
   color: #fff;
   border-width: 0;
-  padding: 5px 30px;
   border-radius: 5px;
   outline: none;
   margin-bottom: 10px;
@@ -227,6 +224,8 @@ body {
 .dark-button a {
   text-decoration: none;
   color: #fff;
+  display: block;
+  padding: 5px 30px;
 }
 
 .dark-button:hover {
@@ -241,7 +240,7 @@ body {
 }
 
 .page-title {
-  margin-top: 10px;
+  margin-top: 25px;
   text-align: center;
 }
 
@@ -398,6 +397,8 @@ body {
   margin: 10px;
   -ms-grid-columns: (minmax(225px, 1fr))[auto-fill];
       grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
 }
 
 .lists .dark-button a {
@@ -453,16 +454,21 @@ body {
 }
 
 .list-item .list-item-status .total {
-  border: #999 solid 1px;
+  border: #ddd solid 1px;
   border-radius: 2px;
   padding: 0 4px;
-  color: #999;
+  color: #ddd;
+  background-color: rgba(7, 11, 37, 0.4);
 }
 
 .list-item img {
   border-radius: 5px;
   width: 225px;
   height: 300px;
+}
+
+.list-item .dark-button {
+  padding: 5px 30px;
 }
 
 .dot {
@@ -488,6 +494,7 @@ body {
           align-items: center;
   margin-top: 200px;
   overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .spinner {
@@ -631,6 +638,12 @@ body {
     -ms-grid-columns: none;
         grid-template-columns: none;
   }
+  .lists {
+    -ms-grid-rows: auto;
+        grid-template-rows: auto;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
 }
 
 .currentRandomColumn {
@@ -652,5 +665,41 @@ body {
 
 .width100 {
   width: 100%;
+}
+
+.pager {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pager .dropdown {
+  margin: 0 5px;
+  width: 300px;
+}
+
+.pager .dropdown .top-text {
+  background-color: #fff;
+  color: #000;
+  padding: 5px 0;
+  text-align: center;
+}
+
+.pager .dropdown #dropdown-container {
+  max-height: 20vh;
+  overflow-y: auto;
+  width: 100%;
+  background-color: #fff;
+}
+
+.pager .dropdown #dropdown-container a {
+  color: #000;
+  display: block;
+  text-align: center;
+  border-top: solid #eee 1px;
+  padding: 5px 0;
 }
 /*# sourceMappingURL=style.css.map */

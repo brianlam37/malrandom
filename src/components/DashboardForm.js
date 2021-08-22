@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import UserProfile from './UserProfile';
 const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
-	const [malUser, setUser] = useState(
-		localStorage.getItem('malRandomUser') || ''
-	);
+	const [malUser, setUser] = useState('');
 	const [show, setShow] = useState(false);
 	const [searchData, setSearchData] = useState(null);
 	const [isSearchLoading, setSearchLoader] = useState(false);

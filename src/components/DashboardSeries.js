@@ -38,7 +38,7 @@ const DashboardSeries = ({
 			<>
 				{isRandom(randomBoolean)}
 				<ListItem
-					item={data}
+					data={data}
 					type={type}
 					location={'dashboard'}
 					current={current}

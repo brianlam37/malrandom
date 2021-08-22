@@ -1,138 +1,147 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from './Navbar';
 import ListItem from './ListItem';
 import Spinner from './Spinner';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 const List = ({ type }) => {
 	const [malUser, setMalUser] = useState(
 		localStorage.getItem('malRandomUser') || null
 	);
+	const [maxPages, setMaxPages] = useState(1);
 	const [current, setCurrent] = useState();
-
 	const [list, setList] = useState([]);
 	const [isLoading, setLoading] = useState(false);
-	const [maxPages, setMaxPages] = useState(1);
+	const item = type === 'manga' ? 'malRandomManga' : 'malRandomAnime';
+	const lastWord = type === 'manga' ? 'read' : 'watch';
+	const title = type === 'manga' ? 'Manga' : 'Anime';
+	let { id } = useParams();
 	useEffect(() => {
 		setMalUser(localStorage.getItem('malRandomUser'));
 	}, []);
 	useEffect(() => {
-		if (type === 'manga') {
-			setCurrent(localStorage.getItem('malRandomManga'));
-		} else {
-			setCurrent(localStorage.getItem('malRandomAnime'));
-		}
-	}, [type]);
-	const getList = useCallback(
-		async (pages, lastLetter) => {
-			let dataList = [];
-			for (let i = 1; i <= pages; i++) {
-				const response = await axios.get(
-					`https://api.jikan.moe/v3/user/${malUser}/${type}list/pt${lastLetter}/${i}`
-				);
-				const randomData = response.data[type];
-				dataList = dataList.concat(randomData);
-				if (i === pages) {
-					return dataList;
+		const asyncEffect = async () => {
+			if (malUser) {
+				try {
+					const response = await axios.get(
+						`https://api.jikan.moe/v3/user/${malUser}`
+					);
+					const pageData =
+						response.data[`${type}_stats`][`plan_to_${lastWord}`];
+					setMaxPages(Math.ceil(pageData / 300));
+				} catch (err) {
+					console.log(err);
 				}
 			}
-		},
-		[type, malUser]
-	);
+		};
+		asyncEffect();
+	}, [lastWord, malUser, type]);
+	useEffect(() => {
+		setCurrent(item);
+	}, [item]);
 	useEffect(() => {
 		const asyncEffect = async () => {
-			let mounted = true;
 			if (malUser) {
 				setLoading(true);
 				try {
-					let user = await axios.get(
-						`https://api.jikan.moe/v3/user/${malUser}`
+					const response = await axios.get(
+						`https://api.jikan.moe/v3/user/${malUser}/${type}list/planto${lastWord}/${id}`
 					);
-					let lastLetter = '';
-					let pages = 1;
-					if (type === 'manga') {
-						lastLetter = 'r';
-						pages = Math.ceil(
-							user.data.manga_stats.plan_to_read / 300
-						);
-						setMaxPages(pages);
-					} else {
-						lastLetter = 'w';
-						pages = Math.ceil(
-							user.data.anime_stats.plan_to_watch / 300
-						);
-						setMaxPages(pages);
-					}
-					let dataList = await getList(pages, lastLetter);
-					if (mounted) {
-						setList(dataList);
-						setLoading(false);
-					}
+					const randomData = response.data[type];
+					setList(randomData);
+					setLoading(false);
 				} catch (err) {
 					console.log(err);
 					setLoading(false);
 				}
 			}
-
-			return () => (mounted = false);
 		};
 		asyncEffect();
-	}, [malUser, type, getList]);
-	const handleClick = (item) => {
-		if (type === 'manga' && item.mal_id.toString() !== current) {
-			localStorage.setItem('malRandomManga', item.mal_id);
-			setCurrent(item.mal_id.toString());
-		} else if (type === 'manga' && item.mal_id.toString() === current) {
-			localStorage.removeItem('malRandomManga');
-			setCurrent(null);
-		} else if (type === 'anime' && item.mal_id.toString() === current) {
-			localStorage.removeItem('malRandomAnime');
-			setCurrent(null);
-		} else if (type === 'anime' && item.mal_id.toString() !== current) {
-			localStorage.setItem('malRandomAnime', item.mal_id);
-			setCurrent(item.mal_id.toString());
+	}, [malUser, type, id, lastWord]);
+	const pager = () => {
+		const pages = [];
+		for (let i = 1; i <= maxPages; i++) {
+			pages.push(i);
 		}
-	};
-	const checkLoading = () => {
-		if (isLoading) {
-			return <Spinner type={'big'} />;
-		} else {
-			return (
-				<>
-					<h2 id='list-title'>
-						{type === 'manga' ? 'Manga' : 'Anime'} List
-					</h2>
-					<a
-						id='list-link'
-						href={`https://myanimelist.net/${type}list/${localStorage.getItem(
-							'malRandomUser'
-						)}`}
-						rel='noopener noreferrer'
-					>
-						View your list on MyAnimeList
-					</a>
-					<div className='lists'>
-						{list.map((l, index) => {
-							return (
-								<ListItem
-									key={l.title + index}
-									item={l}
-									type={type}
-									current={current}
-									handleClick={handleClick}
-								/>
-							);
-						}, 0)}
+		return (
+			<div className='pager'>
+				<button className='dark-button' disabled={id === '1'}>
+					<Link to={`/list/${type}/${parseInt(id) - 1}`}>
+						{' '}
+						<i className='fas fa-chevron-left'></i>
+					</Link>
+				</button>
+				<div className='dropdown'>
+					<div className='top-text'>
+						<span>{id}</span> <i className='fa fa-caret-down'></i>
 					</div>
-				</>
-			);
-		}
+					<div id='dropdown-container'>
+						{pages.map((p) => {
+							return (
+								<Link
+									key={`/list/${type}/${p}`}
+									to={`/list/${type}/${p}`}
+								>
+									{p}
+								</Link>
+							);
+						})}
+					</div>
+				</div>
+				<button
+					className='dark-button'
+					disabled={id === maxPages.toString()}
+				>
+					<Link to={`/list/${type}/${parseInt(id) + 1}`}>
+						{' '}
+						<i className='fas fa-chevron-right'></i>
+					</Link>
+				</button>
+			</div>
+		);
 	};
-	return (
-		<div className='lists-container'>
-			<Navbar />
-			{checkLoading()}
-		</div>
-	);
+	if (isLoading) {
+		return <Spinner type={'big'} />;
+	} else {
+		const handleClick = (series, current) => {
+			if (series.mal_id.toString() !== current) {
+				localStorage.setItem(item, series.mal_id);
+				setCurrent(series.mal_id.toString());
+			} else if (series.mal_id.toString() === current) {
+				localStorage.removeItem(item);
+				setCurrent(null);
+			}
+		};
+		return (
+			<>
+				<h2 id='list-title'>{title} List</h2>
+				{pager()}
+				<a
+					id='list-link'
+					href={`https://myanimelist.net/${type}list/${localStorage.getItem(
+						'malRandomUser'
+					)}`}
+					rel='noopener noreferrer'
+				>
+					View your list on MyAnimeList
+				</a>
+
+				<div className='lists'>
+					{list.map((l, index) => {
+						return (
+							<ListItem
+								key={l.title + index}
+								data={l}
+								type={type}
+								current={current}
+								handleClick={handleClick}
+							/>
+						);
+					}, 0)}
+				</div>
+			</>
+		);
+	}
 };
 
 export default List;

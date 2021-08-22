@@ -18,12 +18,10 @@ body {
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
-	height: 100vh;
+	height: 80vh;
 	.hero {
 		grid-area: hero;
-		background: url('/assets/Hero.jpg') no-repeat center;
 		background-blend-mode: darken;
-		background-color: rgba(18, 27, 80, 0.6);
 		flex-grow: 1;
 		display: grid;
 		grid-template-areas: 'left right';
@@ -158,13 +156,15 @@ body {
 	background-color: $backgroundColor;
 	color: #fff;
 	border-width: 0;
-	padding: 5px 30px;
+
 	border-radius: 5px;
 
 	outline: none;
 	a {
 		text-decoration: none;
 		color: #fff;
+		display: block;
+		padding: 5px 30px;
 	}
 	&:hover {
 		box-shadow: 0 0 0 1px #fff;
@@ -176,7 +176,7 @@ body {
 	margin-bottom: 10px;
 }
 .page-title {
-	margin-top: 10px;
+	margin-top: 25px;
 	text-align: center;
 }
 .user-page {
@@ -287,6 +287,7 @@ body {
 	display: grid;
 	margin: 10px;
 	grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+	grid-template-rows: auto;
 	.dark-button {
 		a {
 			display: block;
@@ -302,6 +303,7 @@ body {
 	margin-left: 15px;
 	font-size: 1.1em;
 }
+
 .list-item {
 	justify-self: center;
 	position: relative;
@@ -324,10 +326,11 @@ body {
 		flex-direction: column;
 		justify-content: space-between;
 		.total {
-			border: #999 solid 1px;
+			border: #ddd solid 1px;
 			border-radius: 2px;
 			padding: 0 4px;
-			color: #999;
+			color: #ddd;
+			background-color: rgba($backgroundColor, 0.4);
 		}
 	}
 	img {
@@ -336,6 +339,9 @@ body {
 		height: 300px;
 	}
 	width: 225px;
+	.dark-button {
+		padding: 5px 30px;
+	}
 }
 .dot {
 	border-radius: 50%;
@@ -353,6 +359,7 @@ body {
 	align-items: center;
 	margin-top: 200px;
 	overflow-y: hidden;
+	overflow-x: hidden;
 }
 .spinner {
 	margin-top: 10px;
@@ -445,6 +452,10 @@ body {
 		grid-template-rows: auto;
 		grid-template-columns: none;
 	}
+	.lists {
+		grid-template-rows: auto;
+		grid-template-columns: 1fr;
+	}
 }
 
 .currentRandomColumn {
@@ -457,4 +468,37 @@ body {
 
 .width100 {
 	width: 100%;
+}
+
+.pager {
+	display: flex;
+	justify-content: center;
+
+	.dropdown {
+		margin: 0 5px;
+		width: 300px;
+		.top-text {
+			background-color: #fff;
+			color: #000;
+			padding: 5px 0;
+			text-align: center;
+		}
+		#dropdown-container {
+			max-height: 20vh;
+			overflow-y: auto;
+			width: 100%;
+			background-color: #fff;
+			a {
+				color: #000;
+				display: block;
+				text-align: center;
+				border-top: solid #eee 1px;
+				padding: 5px 0;
+			}
+		}
+	}
+	.dark-button {
+		a {
+		}
+	}
 }

@@ -2,24 +2,26 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import List from './components/List';
 import Home from './components/Home';
-import UserForm from './components/Dashboard';
+import Dashboard from './components/Dashboard';
+import Navbar from './components/Navbar';
 import './styles/style.css';
 
 function App() {
 	return (
 		<>
 			<Router>
+				<Navbar />
 				<Switch>
 					<Route exact path='/'>
 						<Home />
 					</Route>
 					<Route path='/dashboard'>
-						<UserForm />
+						<Dashboard />
 					</Route>
-					<Route path='/list/anime'>
+					<Route path='/list/anime/:id'>
 						<List type={'anime'} />
 					</Route>
-					<Route path='/list/manga'>
+					<Route path='/list/manga/:id'>
 						<List type={'manga'} />
 					</Route>
 				</Switch>
