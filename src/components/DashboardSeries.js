@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from './Spinner';
 import ListItem from './ListItem';
+//Component which displays the series info
 const DashboardSeries = ({
 	data,
 	loader,

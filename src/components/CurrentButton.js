@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+
+//Component for to switch dashboard series item to current series
 const CurrentButton = ({
 	type,
 	setLoader,

@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from './Spinner';
 import { Link } from 'react-router-dom';
+//The component that shows the user info on the dashboard
 const UserProfile = ({ data, isLoading, type }) => {
 	const checkImg = (data) => {
 		if (!data.image_url) {

@@ -3,6 +3,7 @@ import axios from 'axios';
 import CurrentButton from './CurrentButton';
 import RandomButton from './RandomButton';
 import DashboardSeries from './DashboardSeries';
+//Component which holds all of the dashboard info per series
 const DashboardColumn = ({ setData, data, type, item, word, userData }) => {
 	const [isLoading, setLoader] = useState(false);
 	const [isRandom, setIsRandom] = useState(false);

@@ -4,6 +4,7 @@ import List from './components/List';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import Navbar from './components/Navbar';
+// import Footer from './components/Footer';
 import './styles/style.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 					</Route>
 				</Switch>
 			</Router>
+			{/* <Footer /> */}
 		</>
 	);
 }

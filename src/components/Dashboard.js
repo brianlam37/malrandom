@@ -3,6 +3,7 @@ import axios from 'axios';
 import UserProfile from './UserProfile';
 import DashboardForm from './DashboardForm';
 import DashboardColumn from './DashboardColumn';
+//Component for the user page
 const Dashboard = () => {
 	const [userData, setUserData] = useState(null);
 	const [isLoading, setLoader] = useState(false);

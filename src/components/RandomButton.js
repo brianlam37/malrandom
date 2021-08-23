@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+//To get a random series on the dashboard
 const RandomButton = ({
 	type,
 	setRandom,

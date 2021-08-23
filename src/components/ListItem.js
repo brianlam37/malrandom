@@ -1,4 +1,5 @@
 import React from 'react';
+//The component that displays the actual item in the list
 const ListItem = ({ data, type, current, handleClick, location }) => {
 	const status = (type, data) => {
 		if (location === 'dashboard') {

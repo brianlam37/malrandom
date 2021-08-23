@@ -4,6 +4,7 @@ import ListItem from './ListItem';
 import Spinner from './Spinner';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+//The component which displays the list per page
 const List = ({ type }) => {
 	const [malUser, setMalUser] = useState(
 		localStorage.getItem('malRandomUser') || null

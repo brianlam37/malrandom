@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import UserProfile from './UserProfile';
+//Component to switch users
 const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 	const [malUser, setUser] = useState('');
 	const [show, setShow] = useState(false);
