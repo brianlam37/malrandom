@@ -9,6 +9,7 @@ app.use(cors());
 
 app.use(express.static('build'));
 app.get('*', (req, res) => {
+	console.log(__dirname);
 	res.sendFile('index.html', {
 		root: path.join(__dirname, '/build'),
 	});
