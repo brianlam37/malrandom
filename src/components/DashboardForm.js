@@ -14,24 +14,36 @@ const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 			setShow(false);
 		}, 2000);
 	}, [show, timeOut]);
-	const handleSearch = async (e) => {
+	const handleSearch = (e) => {
 		e.preventDefault();
+		setClicked(true);
 		setSearchLoader(true);
 		setSearchData(null);
-		try {
-			const response = await axios.get(
-				`https://api.jikan.moe/v3/user/${malUser}`
-			);
-			setSearchLoader(false);
-			setSearchData(response.data);
-			setClicked(true);
-		} catch (err) {
-			console.log(err);
-			setSearchLoader(false);
-			setSearchData(null);
-			setClicked(true);
-		}
 	};
+	useEffect(() => {
+		let mounted = true;
+		const effect = async () => {
+			if (isSearchLoading) {
+				try {
+					const response = await axios.get(
+						`https://api.jikan.moe/v3/user/${malUser}`
+					);
+					if (mounted) {
+						setSearchLoader(false);
+						setSearchData(response.data);
+					}
+				} catch (err) {
+					console.log(err);
+					if (mounted) {
+						setSearchLoader(false);
+						setSearchData(null);
+					}
+				}
+			}
+		};
+		effect();
+		return () => (mounted = false);
+	}, [isSearchLoading, malUser]);
 	const handleSetUser = () => {
 		localStorage.setItem('malRandomUser', searchData.username);
 		if (localStorage.getItem('malRandomUser') === searchData.username) {
@@ -55,9 +67,8 @@ const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 		if (clicked && !isSearchLoading && searchData) {
 			return (
 				<>
-					<hr />
 					<button
-						className='primary-button'
+						className='primary-button button set-user-button'
 						onClick={handleSetUser}
 						disabled={show}
 					>
@@ -68,9 +79,8 @@ const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 		}
 	};
 	return (
-		<div className='user-info'>
-			<h4>Not You?</h4>
-			<form>
+		<>
+			<form className='user-form'>
 				<label htmlFor='username'>MyAnimeList Username:</label>
 				<div>
 					<input
@@ -86,7 +96,7 @@ const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 			</form>
 			<UserProfile data={searchData} isLoading={isSearchLoading} />
 			{drawButton()}
-		</div>
+		</>
 	);
 };
 export default DashboardForm;

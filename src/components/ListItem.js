@@ -45,9 +45,19 @@ const ListItem = ({ data, type, current, handleClick, location }) => {
 				return (
 					<>
 						{type === 'manga' ? (
-							<> Chapters: {data.chapters} </>
+							<>
+								{' '}
+								Chapters: {data.chapters
+									? data.chapters
+									: '-'}{' '}
+							</>
 						) : (
-							<> Episodes: {data.episodes} </>
+							<>
+								{' '}
+								Episodes: {data.episodes
+									? data.episodes
+									: '-'}{' '}
+							</>
 						)}
 					</>
 				);
@@ -55,9 +65,15 @@ const ListItem = ({ data, type, current, handleClick, location }) => {
 			return (
 				<>
 					{type === 'manga' ? (
-						<> Chapters: {data.total_chapters} </>
+						<>
+							Chapters:{' '}
+							{data.total_chapters ? data.total_chapters : '-'}
+						</>
 					) : (
-						<> Episodes: {data.total_episodes} </>
+						<>
+							Episodes:{' '}
+							{data.total_episodes ? data.total_episodes : '-'}
+						</>
 					)}
 				</>
 			);
@@ -85,7 +101,7 @@ const ListItem = ({ data, type, current, handleClick, location }) => {
 	const drawButton = () => {
 		return (
 			<button
-				className='dark-button current'
+				className='dark-button button current'
 				onClick={() => handleClick(data)}
 			>
 				{handleButtonText()}
@@ -94,7 +110,11 @@ const ListItem = ({ data, type, current, handleClick, location }) => {
 	};
 	return (
 		<div className='list-item'>
-			<img src={data.image_url} alt='anime/manga cover' />
+			<img
+				className='list-item-img'
+				src={data.image_url}
+				alt='anime/manga cover'
+			/>
 			{drawButton()}
 			<div className='list-item-info'>
 				<a target='_blank' rel='noopener noreferrer' href={data.url}>

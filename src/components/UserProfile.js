@@ -1,8 +1,9 @@
 import React from 'react';
 import Spinner from './Spinner';
 import { Link } from 'react-router-dom';
+
 //The component that shows the user info on the dashboard
-const UserProfile = ({ data, isLoading, type }) => {
+const UserProfile = ({ data, isLoading, type, show }) => {
 	const checkImg = (data) => {
 		if (!data.image_url) {
 			return (
@@ -21,17 +22,20 @@ const UserProfile = ({ data, isLoading, type }) => {
 		}
 	};
 	const displayLists = () => {
-		if (data.username === localStorage.getItem('malRandomUser')) {
-			return (
-				<div className='lists'>
-					<button className='dark-button'>
-						<Link to='/list/anime/1'>Anime List</Link>
-					</button>
-					<button className='dark-button'>
-						<Link to='/list/manga/1'>Manga List</Link>
-					</button>
-				</div>
-			);
+		if (show) {
+			if (data.username === localStorage.getItem('malRandomUser')) {
+				return (
+					<div className='lists'>
+						<Link className='dark-button button' to='/list/anime/1'>
+							Anime List
+						</Link>
+
+						<Link className='dark-button button' to='/list/manga/1'>
+							Manga List
+						</Link>
+					</div>
+				);
+			}
 		}
 	};
 	if (type === 'normal') {

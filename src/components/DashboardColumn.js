@@ -16,6 +16,7 @@ const DashboardColumn = ({ setData, data, type, item, word, userData }) => {
 	);
 
 	useEffect(() => {
+		let mounted = true;
 		const getRandom = async () => {
 			if (localStorage.getItem(item)) {
 				setLoader(true);
@@ -26,18 +27,19 @@ const DashboardColumn = ({ setData, data, type, item, word, userData }) => {
 							item
 						)}`
 					);
-					setLoader(false);
-					dataCallback(response.data);
+					if (mounted) {
+						setLoader(false);
+						dataCallback(response.data);
+					}
 				} catch (err) {
-					setLoader(false);
+					if (mounted) {
+						setLoader(false);
+					}
 					console.log(err);
 				}
 			}
 		};
-		let mounted = true;
-		if (mounted) {
-			getRandom();
-		}
+		getRandom();
 		return () => (mounted = false);
 	}, [item, type, dataCallback]);
 	return (

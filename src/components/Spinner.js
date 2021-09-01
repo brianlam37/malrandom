@@ -13,11 +13,13 @@ const Spinner = ({ type }) => {
 		);
 	}
 	return (
-		<div className='spinner'>
-			<div className='spinner-text'>Loading</div>
-			<div className='spinner-sector spinner-sector-white'></div>
-			<div className='spinner-sector spinner-sector-blue'></div>
-			<div className='spinner-sector spinner-sector-grey'></div>
+		<div className='spinner-container'>
+			<div className='spinner'>
+				<div className='spinner-text'>Loading</div>
+				<div className='spinner-sector spinner-sector-white'></div>
+				<div className='spinner-sector spinner-sector-blue'></div>
+				<div className='spinner-sector spinner-sector-grey'></div>
+			</div>
 		</div>
 	);
 };

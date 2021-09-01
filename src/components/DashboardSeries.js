@@ -23,18 +23,33 @@ const DashboardSeries = ({
 			setCurrent(null);
 		}
 	};
+	const isRandom = (randomBoolean) => {
+		if (randomBoolean) {
+			return <div>Random {type}:</div>;
+		} else {
+			return <div>Currently {word}ing</div>;
+		}
+	};
 	if (loader) {
-		return <Spinner />;
+		return (
+			<>
+				{isRandom(randomBoolean)}
+				<div className='list-item'>
+					<div className='list-item-img'>
+						<Spinner />
+					</div>
+					<div className='list-item-info'>Loading</div>
+					<div className='list-item-status'>
+						<div>
+							-<div className='dot'></div>-
+						</div>
+						<div className='total'>-</div>
+					</div>
+				</div>
+			</>
+		);
 	}
 	if (data) {
-		const isRandom = (randomBoolean) => {
-			if (randomBoolean) {
-				return <div>Random {type}:</div>;
-			} else {
-				return <div>Currently {word}ing</div>;
-			}
-		};
-
 		return (
 			<>
 				{isRandom(randomBoolean)}
@@ -50,7 +65,21 @@ const DashboardSeries = ({
 			</>
 		);
 	}
-	return null;
+	return (
+		<>
+			{isRandom(randomBoolean)}
+			<div className='list-item'>
+				<div className='list-item-img'>Nothing here :(</div>
+				<div className='list-item-info'>Click Random Button Below</div>
+				<div className='list-item-status'>
+					<div>
+						-<div className='dot'></div>-
+					</div>
+					<div className='total'>-</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default DashboardSeries;

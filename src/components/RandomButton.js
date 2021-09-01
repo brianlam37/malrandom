@@ -14,9 +14,17 @@ const RandomButton = ({
 		setLoader(true);
 		const listLength = userData[`${type}_stats`][`plan_to_${lastWord}`];
 		try {
-			const randomIndex = Math.floor(Math.random() * listLength);
+			const randomIndex = Math.floor(Math.random() * listLength) + 1;
+
 			const pageNumber = Math.ceil(randomIndex / 300);
-			const pageIndex = randomIndex - (pageNumber - 1) * 300;
+
+			let pageIndex;
+			if (pageNumber > 1) {
+				pageIndex = pageNumber * 300 - randomIndex - 1;
+			} else {
+				pageIndex = randomIndex - 1;
+			}
+
 			const response = await axios.get(
 				`https://api.jikan.moe/v3/user/${userData.username}/${type}list/planto${lastWord}/${pageNumber}`
 			);
@@ -34,7 +42,7 @@ const RandomButton = ({
 	};
 	return (
 		<button
-			className='dark-button width100'
+			className='dark-button button width100'
 			onClick={() => getRandom(type)}
 			disabled={!userData}
 		>

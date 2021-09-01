@@ -11,6 +11,8 @@ $backgroundColor: rgb(7, 11, 37);
 		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	color: #fff;
 }
+h1 {
+}
 body {
 	background-color: $backgroundColor;
 	background: url('/assets/Hero.jpg') no-repeat center;
@@ -184,43 +186,26 @@ body {
 		}
 	}
 }
-
-.primary-button {
-	background-color: $primaryColor;
-	color: #fff;
-	border-width: 0;
-	padding: 5px 30px;
-	border-radius: 5px;
-
+.button,
+.dropdown-button {
+	border: none;
+	padding: 0.4em 2em;
+	color: #000;
+	text-align: center;
+	text-decoration: none;
+	font-size: 1rem;
 	outline: none;
-	a {
-		text-decoration: none;
-		color: #fff;
-	}
-	&:hover {
-		box-shadow: 0 0 0 1px #fff;
-	}
-	&:disabled {
-		background-color: #ccc;
-		box-shadow: none;
-	}
+	display: block;
 }
-.dark-button {
-	background-color: $backgroundColor;
-	color: #fff;
-	border-width: 0;
-
+.button {
 	border-radius: 5px;
 
-	outline: none;
-	a {
-		text-decoration: none;
-		color: #fff;
-		display: block;
-		padding: 5px 30px;
-	}
+	color: #fff;
+
 	&:hover {
 		box-shadow: 0 0 0 1px #fff;
+		text-decoration: none;
+		color: #fff;
 	}
 	&:disabled {
 		background-color: #ccc;
@@ -228,53 +213,42 @@ body {
 	}
 	margin-bottom: 10px;
 }
+
+.dropdown-button:hover {
+	box-shadow: 0 0 0 1px #fff;
+	text-decoration: none;
+	color: #fff;
+}
+.primary-button {
+	background-color: $primaryColor;
+}
+.dark-button {
+	background-color: $backgroundColor;
+}
 .page-title {
 	margin-top: 25px;
+	text-align: center;
+	font-size: 2rem;
+}
+.user-info {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	background-color: $secondaryColor;
+	outline: 1px solid $secondaryColorHover;
+
+	min-width: 300px;
 	text-align: center;
 }
 .user-page {
 	display: grid;
 	margin: 10px auto;
 	width: 80vw;
-	grid-template-columns: auto auto auto;
+	grid-template-columns: auto auto;
 	align-content: stretch;
-
-	.user-info {
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-		background-color: $secondaryColor;
-		outline: 1px solid $secondaryColorHover;
-		padding: 5px;
-		min-width: 300px;
-	}
-
-	form {
-		div {
-			display: flex;
-			justify-content: center;
-			input {
-				border-radius: 5px 0 0 5px;
-				border: none;
-				width: 100%;
-				padding: 5px;
-			}
-			button {
-				background-color: $primaryColor;
-				color: #fff;
-				border-width: 0;
-				padding: 5px 30px;
-				border-radius: 0 5px 5px 0px;
-				outline: none;
-				a {
-					text-decoration: none;
-					color: #fff;
-				}
-				&:hover {
-					box-shadow: 0 0 0 1px #fff;
-				}
-			}
-		}
+	grid-auto-rows: 1fr;
+	a {
+		text-decoration: none;
 	}
 	.user-currents {
 		display: grid;
@@ -285,55 +259,114 @@ body {
 		outline: 1px solid $secondaryColorHover;
 		padding: 5px;
 		min-width: 300px;
-		img {
-			width: 225px;
-			height: 300px;
-		}
+
 		.list-item {
 			justify-self: center;
 			margin-bottom: 10px;
 		}
+
+		.list-item-img {
+			border: 1px solid #fff;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 	}
-	.user-profile {
+
+	.user-form {
+		margin-top: 2em;
+		margin-bottom: 2em;
+	}
+}
+.user-profile {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	text-align: center;
+	a {
+		text-decoration: none;
+	}
+	div {
+		width: 225px;
+		color: #fff;
+		p {
+			margin: 0;
+		}
+	}
+	img {
+		width: 225px;
+		height: 225px;
+		object-fit: cover;
+		border-radius: 2px;
+	}
+}
+.no-img {
+	background-color: #c9c9c9 !important;
+	border-radius: 2px;
+	color: #787878 !important;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 225px;
+
+	text-align: center;
+	position: relative;
+	text-decoration: none;
+	width: 225px;
+	vertical-align: middle;
+
+	i {
+		font-size: 48px;
+	}
+}
+.set-user-button {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.user-form {
+	text-align: left;
+	margin-bottom: 1em;
+	div {
 		display: flex;
-		flex-direction: column;
 		justify-content: center;
+
+		height: 100%;
 		align-items: center;
-		width: 100%;
-		text-align: center;
-		div {
-			width: 225px;
+		input {
+			border-radius: 5px 0 0 5px;
+			border: none;
+			width: 100%;
+			padding: 0.4em;
+			color: #000;
+		}
+		button {
+			background-color: $primaryColor;
 			color: #fff;
-			p {
-				margin: 0;
+			border-width: 0;
+			padding: 0.4em 2em;
+			border-radius: 0 5px 5px 0px;
+
+			outline: none;
+			a {
+				text-decoration: none;
+				color: #fff;
+			}
+			&:hover {
+				box-shadow: 0 0 0 1px #fff;
 			}
 		}
-		img {
-			width: 225px;
-			max-height: 300px;
-			border-radius: 2px;
-		}
 	}
+}
 
-	.no-img {
-		background-color: #c9c9c9 !important;
-		border-radius: 2px;
-		color: #787878 !important;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		height: 225px;
-
-		text-align: center;
-		position: relative;
-		text-decoration: none;
-		width: 225px;
-		vertical-align: middle;
-
-		i {
-			font-size: 48px;
-		}
-	}
+.dashboard-settings {
+	display: flex;
+	justify-content: flex-start;
+	width: 100%;
+	padding: 0.5rem 1rem;
+	font-size: 1.4rem;
+	border-bottom: 1px solid;
 }
 
 .lists {
@@ -350,6 +383,7 @@ body {
 #list-title {
 	text-align: center;
 	margin-top: 25px;
+	font-size: 2rem;
 }
 #list-link {
 	color: #fff;
@@ -364,13 +398,15 @@ body {
 	flex-direction: column;
 	margin-bottom: 10px;
 	.list-item-info {
+		font-weight: bold;
+		color: #fff;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		display: block;
 		a {
-			font-weight: bold;
-			color: #fff;
-			text-overflow: ellipsis;
-			overflow: hidden;
-			white-space: nowrap;
-			display: block;
+			color: inherit;
+			text-decoration: none;
 		}
 	}
 	.list-item-status {
@@ -386,10 +422,12 @@ body {
 			background-color: rgba($backgroundColor, 0.4);
 		}
 	}
-	img {
+	.list-item-img {
 		border-radius: 5px;
+		object-fit: cover;
 		width: 225px;
 		height: 300px;
+		background-color: $backgroundColor;
 	}
 	width: 225px;
 	.dark-button {
@@ -406,16 +444,21 @@ body {
 	border: 2px solid white;
 	display: inline-block;
 }
-.spinner-page-container {
+.spinner-page-container,
+.spinner-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+.spinner-page-container {
 	margin-top: 200px;
 	overflow-y: hidden;
 	overflow-x: hidden;
 }
+.spinner-container {
+	height: 100%;
+}
 .spinner {
-	margin-top: 10px;
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -502,7 +545,7 @@ body {
 
 @media (max-width: 800px) {
 	.user-page {
-		grid-template-rows: auto;
+		grid-auto-rows: auto;
 		grid-template-columns: none;
 	}
 	.lists {
@@ -513,7 +556,12 @@ body {
 		grid-template-columns: 1fr;
 	}
 }
-
+@media (max-width: 1000px) {
+	.user-page {
+		grid-auto-rows: auto;
+		grid-template-columns: 1fr;
+	}
+}
 .currentRandomColumn {
 	display: flex;
 	flex-direction: column;
@@ -521,7 +569,7 @@ body {
 	align-items: center;
 	margin-bottom: 10px;
 	.dark-button {
-		padding: 5px 30px;
+		padding: 0.4em 2em;
 	}
 }
 
@@ -532,32 +580,82 @@ body {
 .pager {
 	display: flex;
 	justify-content: center;
-
 	.dropdown {
 		margin: 0 5px;
 		width: 300px;
-		.top-text {
-			background-color: #fff;
-			color: #000;
-			padding: 5px 0;
-			text-align: center;
-		}
+
 		#dropdown-container {
-			max-height: 20vh;
+			max-height: calc((0.8em + 2rem) * 5);
 			overflow-y: auto;
 			width: 100%;
 			background-color: #fff;
-			a {
-				color: #000;
-				display: block;
-				text-align: center;
-				border-top: solid #eee 1px;
-				padding: 5px 0;
-			}
+		}
+		.dropdown-button {
+			line-height: 2;
+			border: 1px #000;
 		}
 	}
-	.dark-button {
-		a {
+}
+.top-text {
+	background-color: #fff;
+	color: #000;
+
+	text-align: center;
+	padding: 0.4em 2em;
+	position: relative;
+	span {
+		color: inherit;
+	}
+	i {
+		position: absolute;
+		color: inherit;
+		right: 1rem;
+		top: 25%;
+	}
+}
+body.modal-open {
+	height: 100vh;
+	overflow-y: hidden;
+}
+.modal-background {
+	position: fixed;
+	background-color: rgba(50, 50, 50, 0.6);
+	height: 100vh;
+	width: 100vw;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	.modal-container {
+		height: 300px;
+		background-color: $secondaryColor;
+		display: flex;
+		margin: auto;
+		align-items: center;
+		border: 1px solid $secondaryColorHover;
+		border-radius: 5px;
+		flex-direction: column;
+		justify-content: center;
+		.user-info {
+			outline: none;
+			border: none;
+			min-height: 425px;
 		}
 	}
+	.modal-header {
+		display: flex;
+		justify-content: flex-end;
+		font-size: 1.2rem;
+		padding: 0.6rem 1.2rem;
+		width: 100%;
+		border-bottom: 1px solid $secondaryColorHover;
+		background-color: $secondaryColor;
+	}
+}
+
+.left-button {
+	margin-left: 5px;
+}
+.right-button {
+	margin-right: 5px;
 }

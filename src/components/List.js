@@ -66,7 +66,10 @@ const List = ({ type }) => {
 		}
 		return (
 			<div className='pager'>
-				<button className='dark-button' disabled={id === '1'}>
+				<button
+					className='dark-button button left-button'
+					disabled={id === '1'}
+				>
 					<Link to={`/list/${type}/${parseInt(id) - 1}`}>
 						{' '}
 						<i className='fas fa-chevron-left'></i>
@@ -80,6 +83,7 @@ const List = ({ type }) => {
 						{pages.map((p) => {
 							return (
 								<Link
+									className='dropdown-button '
 									key={`/list/${type}/${p}`}
 									to={`/list/${type}/${p}`}
 								>
@@ -90,7 +94,7 @@ const List = ({ type }) => {
 					</div>
 				</div>
 				<button
-					className='dark-button'
+					className='dark-button button right-button'
 					disabled={id === maxPages.toString()}
 				>
 					<Link to={`/list/${type}/${parseInt(id) + 1}`}>
