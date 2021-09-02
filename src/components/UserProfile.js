@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 //The component that shows the user info on the dashboard
 const UserProfile = ({ data, isLoading, type, show }) => {
+	console.log(data);
 	const checkImg = (data) => {
 		if (!data.image_url) {
 			return (

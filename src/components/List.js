@@ -21,43 +21,64 @@ const List = ({ type }) => {
 		setMalUser(localStorage.getItem('malRandomUser'));
 	}, []);
 	useEffect(() => {
+		const source = axios.CancelToken.source();
 		const asyncEffect = async () => {
 			if (malUser) {
 				try {
 					const response = await axios.get(
-						`https://api.jikan.moe/v3/user/${malUser}`
+						`https://api.jikan.moe/v3/user/${malUser}`,
+						{
+							cancelToken: source.token,
+						}
 					);
 					const pageData =
 						response.data[`${type}_stats`][`plan_to_${lastWord}`];
 					setMaxPages(Math.ceil(pageData / 300));
 				} catch (err) {
-					console.log(err);
+					if (axios.isCancel(err)) {
+					} else {
+						console.log(err);
+					}
 				}
 			}
 		};
 		asyncEffect();
+		return () => {
+			source.cancel();
+		};
 	}, [lastWord, malUser, type]);
 	useEffect(() => {
 		setCurrent(item);
 	}, [item]);
 	useEffect(() => {
+		const source = axios.CancelToken.source();
 		const asyncEffect = async () => {
 			if (malUser) {
 				setLoading(true);
 				try {
 					const response = await axios.get(
-						`https://api.jikan.moe/v3/user/${malUser}/${type}list/planto${lastWord}/${id}`
+						`https://api.jikan.moe/v3/user/${malUser}/${type}list/planto${lastWord}/${id}`,
+						{
+							cancelToken: source.token,
+						}
 					);
 					const randomData = response.data[type];
 					setList(randomData);
 					setLoading(false);
 				} catch (err) {
-					console.log(err);
-					setLoading(false);
+					if (axios.isCancel(err)) {
+					} else {
+						setLoading(false);
+
+						console.log(err);
+					}
 				}
 			}
 		};
 		asyncEffect();
+		return () => {
+			source.cancel();
+		};
 	}, [malUser, type, id, lastWord]);
 	const pager = () => {
 		const pages = [];

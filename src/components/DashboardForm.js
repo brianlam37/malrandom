@@ -21,28 +21,32 @@ const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 		setSearchData(null);
 	};
 	useEffect(() => {
-		let mounted = true;
+		const source = axios.CancelToken.source();
 		const effect = async () => {
 			if (isSearchLoading) {
 				try {
 					const response = await axios.get(
-						`https://api.jikan.moe/v3/user/${malUser}`
+						`https://api.jikan.moe/v3/user/${malUser}`,
+						{
+							cancelToken: source.token,
+						}
 					);
-					if (mounted) {
-						setSearchLoader(false);
-						setSearchData(response.data);
-					}
+					setSearchData(response.data);
+					setSearchLoader(false);
 				} catch (err) {
-					console.log(err);
-					if (mounted) {
+					if (axios.isCancel(err)) {
+					} else {
 						setSearchLoader(false);
 						setSearchData(null);
 					}
+					console.log(err);
 				}
 			}
 		};
 		effect();
-		return () => (mounted = false);
+		return () => {
+			source.cancel();
+		};
 	}, [isSearchLoading, malUser]);
 	const handleSetUser = () => {
 		localStorage.setItem('malRandomUser', searchData.username);

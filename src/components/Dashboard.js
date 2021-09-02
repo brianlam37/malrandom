@@ -12,7 +12,7 @@ const Dashboard = () => {
 	const [mangaData, setMangaData] = useState(null);
 	const [show, setShow] = useState(false);
 	useEffect(() => {
-		let mounted = true;
+		const source = axios.CancelToken.source();
 		const getUser = async () => {
 			if (localStorage.getItem('malRandomUser')) {
 				setLoader(true);
@@ -20,23 +20,27 @@ const Dashboard = () => {
 					const response = await axios.get(
 						`https://api.jikan.moe/v3/user/${localStorage.getItem(
 							'malRandomUser'
-						)}`
+						)}`,
+						{
+							cancelToken: source.token,
+						}
 					);
-					if (mounted) {
-						setLoader(false);
-						setUserData(response.data);
-					}
-				} catch (err) {
-					if (mounted) {
-						setLoader(false);
-					}
 
-					console.log(err);
+					setLoader(false);
+					setUserData(response.data);
+				} catch (err) {
+					if (axios.isCancel(err)) {
+					} else {
+						setLoader(false);
+						console.log(err);
+					}
 				}
 			}
 		};
 		getUser();
-		return () => (mounted = false);
+		return () => {
+			source.cancel();
+		};
 	}, []);
 	const onToggle = () => {
 		setShow(!show);

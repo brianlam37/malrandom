@@ -16,31 +16,37 @@ const DashboardColumn = ({ setData, data, type, item, word, userData }) => {
 	);
 
 	useEffect(() => {
-		let mounted = true;
-		const getRandom = async () => {
-			if (localStorage.getItem(item)) {
-				setLoader(true);
-				setCurrent(localStorage.getItem(item));
-				try {
-					const response = await axios.get(
-						`https://api.jikan.moe/v3/${type}/${localStorage.getItem(
-							item
-						)}`
-					);
-					if (mounted) {
-						setLoader(false);
-						dataCallback(response.data);
+		const source = axios.CancelToken.source();
+		const getSeries = async () => {
+			try {
+				const response = await axios.get(
+					`https://api.jikan.moe/v3/${type}/${localStorage.getItem(
+						item
+					)}`,
+					{
+						cancelToken: source.token,
 					}
-				} catch (err) {
-					if (mounted) {
-						setLoader(false);
-					}
-					console.log(err);
+				);
+
+				setLoader(false);
+				dataCallback(response.data);
+			} catch (err) {
+				if (axios.isCancel(err)) {
+				} else {
+					setLoader(false);
 				}
+				console.log(err);
 			}
 		};
-		getRandom();
-		return () => (mounted = false);
+		if (localStorage.getItem(item)) {
+			setLoader(true);
+			setCurrent(localStorage.getItem(item));
+			getSeries();
+		}
+
+		return () => {
+			source.cancel();
+		};
 	}, [item, type, dataCallback]);
 	return (
 		<div className='currentRandomColumn'>
