@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 //The component that shows the user info on the dashboard
 const UserProfile = ({ data, isLoading, type, show }) => {
-	console.log(data);
 	const checkImg = (data) => {
 		if (!data.image_url) {
 			return (
@@ -26,7 +25,7 @@ const UserProfile = ({ data, isLoading, type, show }) => {
 		if (show) {
 			if (data.username === localStorage.getItem('malRandomUser')) {
 				return (
-					<div className='lists'>
+					<div className='list-links'>
 						<Link className='dark-button button' to='/list/anime/1'>
 							Anime List
 						</Link>

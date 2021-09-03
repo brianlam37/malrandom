@@ -65,8 +65,9 @@ const Dashboard = () => {
 		);
 	};
 	return (
-		<>
+		<div className='title-content-container'>
 			<h3 className='page-title'>User Dashboard</h3>
+
 			<div className='user-page'>
 				<div className='user-info'>
 					<div className='dashboard-settings' onClick={onToggle}>
@@ -93,6 +94,7 @@ const Dashboard = () => {
 					/>
 				</div>
 			</div>
+
 			<Modal show={show} toggle={onToggle}>
 				<div className='user-info'>
 					<DashboardForm
@@ -102,7 +104,7 @@ const Dashboard = () => {
 					/>
 				</div>
 			</Modal>
-		</>
+		</div>
 	);
 };
 

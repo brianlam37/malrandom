@@ -9,7 +9,7 @@ import './styles/style.css';
 
 function App() {
 	return (
-		<>
+		<div className='container'>
 			<Router>
 				<Navbar />
 				<Switch>
@@ -28,7 +28,7 @@ function App() {
 				</Switch>
 			</Router>
 			{/* <Footer /> */}
-		</>
+		</div>
 	);
 }
 

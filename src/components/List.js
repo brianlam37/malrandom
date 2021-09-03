@@ -3,9 +3,10 @@ import axios from 'axios';
 import ListItem from './ListItem';
 import Spinner from './Spinner';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 //The component which displays the list per page
 const List = ({ type }) => {
+	const history = useHistory();
 	const [malUser, setMalUser] = useState(
 		localStorage.getItem('malRandomUser') || null
 	);
@@ -85,16 +86,17 @@ const List = ({ type }) => {
 		for (let i = 1; i <= maxPages; i++) {
 			pages.push(i);
 		}
+
 		return (
 			<div className='pager'>
 				<button
 					className='dark-button button left-button'
 					disabled={id === '1'}
+					onClick={() =>
+						history.push(`/list/${type}/${parseInt(id) - 1}`)
+					}
 				>
-					<Link to={`/list/${type}/${parseInt(id) - 1}`}>
-						{' '}
-						<i className='fas fa-chevron-left'></i>
-					</Link>
+					<i className='fas fa-chevron-left'></i>
 				</button>
 				<div className='dropdown'>
 					<div className='top-text'>
@@ -116,16 +118,17 @@ const List = ({ type }) => {
 				</div>
 				<button
 					className='dark-button button right-button'
-					disabled={id === maxPages.toString()}
+					disabled={id === maxPages.toString() || maxPages === 0}
+					onClick={() =>
+						history.push(`/list/${type}/${parseInt(id) + 1}`)
+					}
 				>
-					<Link to={`/list/${type}/${parseInt(id) + 1}`}>
-						{' '}
-						<i className='fas fa-chevron-right'></i>
-					</Link>
+					<i className='fas fa-chevron-right'></i>
 				</button>
 			</div>
 		);
 	};
+
 	if (isLoading) {
 		return <Spinner type={'big'} />;
 	} else {
@@ -139,19 +142,20 @@ const List = ({ type }) => {
 			}
 		};
 		return (
-			<>
-				<h2 id='list-title'>{title} List</h2>
-				{pager()}
-				<a
-					id='list-link'
-					href={`https://myanimelist.net/${type}list/${localStorage.getItem(
-						'malRandomUser'
-					)}`}
-					rel='noopener noreferrer'
-				>
-					View your list on MyAnimeList
-				</a>
-
+			<div className='title-content-container'>
+				<div>
+					<h2 id='list-title'>{title} List</h2>
+					{pager()}
+					<a
+						id='list-link'
+						href={`https://myanimelist.net/${type}list/${localStorage.getItem(
+							'malRandomUser'
+						)}`}
+						rel='noopener noreferrer'
+					>
+						View your list on MyAnimeList
+					</a>
+				</div>
 				<div className='lists'>
 					{list.map((l, index) => {
 						return (
@@ -165,7 +169,7 @@ const List = ({ type }) => {
 						);
 					}, 0)}
 				</div>
-			</>
+			</div>
 		);
 	}
 };
