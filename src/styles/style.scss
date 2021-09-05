@@ -289,7 +289,7 @@ body {
 		column-gap: 10px;
 		grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
 		justify-items: center;
-		background-color: rgba(color($secondaryColor), 0.1);
+		background-color: $secondaryColor;
 		outline: 1px solid $secondaryColorHover;
 		padding: 5px;
 		min-width: 300px;

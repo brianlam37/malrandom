@@ -396,6 +396,7 @@ body {
   -ms-grid-columns: (minmax(225px, 1fr))[auto-fit];
       grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
   justify-items: center;
+  background-color: #121b50;
   outline: 1px solid #27326b;
   padding: 5px;
   min-width: 300px;
