@@ -205,7 +205,7 @@ body {
 	font-size: 1rem;
 	outline: none;
 	display: block;
-
+	cursor: pointer;
 	text-decoration: none;
 }
 .button {
@@ -280,6 +280,7 @@ body {
 	grid-template-rows: auto;
 	overflow: auto;
 	align-self: start;
+
 	l a {
 		text-decoration: none;
 	}
@@ -288,7 +289,7 @@ body {
 		column-gap: 10px;
 		grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
 		justify-items: center;
-		background-color: $secondaryColor;
+		background-color: rgba(color($secondaryColor), 0.1);
 		outline: 1px solid $secondaryColorHover;
 		padding: 5px;
 		min-width: 300px;
@@ -380,7 +381,7 @@ body {
 			border-width: 0;
 			padding: 0.4em 2em;
 			border-radius: 0 5px 5px 0px;
-
+			cursor: pointer;
 			outline: none;
 			a {
 				text-decoration: none;
@@ -400,6 +401,9 @@ body {
 	padding: 0.5rem 1rem;
 	font-size: 1.4rem;
 	border-bottom: 1px solid;
+	i {
+		cursor: pointer;
+	}
 }
 
 .currentRandomColumn {
@@ -717,5 +721,8 @@ body.modal-open {
 		width: 100%;
 		border-bottom: 1px solid $secondaryColorHover;
 		background-color: $secondaryColor;
+		i {
+			cursor: pointer;
+		}
 	}
 }

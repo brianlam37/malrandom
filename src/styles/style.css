@@ -287,6 +287,7 @@ body {
   font-size: 1rem;
   outline: none;
   display: block;
+  cursor: pointer;
   text-decoration: none;
 }
 
@@ -395,7 +396,6 @@ body {
   -ms-grid-columns: (minmax(225px, 1fr))[auto-fit];
       grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
   justify-items: center;
-  background-color: #121b50;
   outline: 1px solid #27326b;
   padding: 5px;
   min-width: 300px;
@@ -527,6 +527,7 @@ body {
   border-width: 0;
   padding: 0.4em 2em;
   border-radius: 0 5px 5px 0px;
+  cursor: pointer;
   outline: none;
 }
 
@@ -551,6 +552,10 @@ body {
   padding: 0.5rem 1rem;
   font-size: 1.4rem;
   border-bottom: 1px solid;
+}
+
+.dashboard-settings i {
+  cursor: pointer;
 }
 
 .currentRandomColumn {
@@ -1011,5 +1016,9 @@ body.modal-open {
   width: 100%;
   border-bottom: 1px solid #27326b;
   background-color: #121b50;
+}
+
+.modal-background .modal-header i {
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */

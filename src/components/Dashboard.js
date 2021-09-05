@@ -4,6 +4,7 @@ import UserProfile from './UserProfile';
 import DashboardForm from './DashboardForm';
 import DashboardColumn from './DashboardColumn';
 import Modal from './Modal';
+import Spinner from './Spinner';
 //Component for the user page
 const Dashboard = () => {
 	const [userData, setUserData] = useState(null);
@@ -55,6 +56,9 @@ const Dashboard = () => {
 					show={true}
 				/>
 			);
+		}
+		if (isLoading) {
+			return <Spinner />;
 		}
 		return (
 			<DashboardForm
