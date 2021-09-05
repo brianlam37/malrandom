@@ -25,9 +25,17 @@ const DashboardSeries = ({
 	};
 	const isRandom = (randomBoolean) => {
 		if (randomBoolean) {
-			return <div>Random {type}:</div>;
+			return (
+				<div className='dashboard-series-random-current'>
+					Random {type}:
+				</div>
+			);
 		} else {
-			return <div>Currently {word}ing</div>;
+			return (
+				<div className='dashboard-series-random-current'>
+					Currently {word}ing:
+				</div>
+			);
 		}
 	};
 	if (loader) {

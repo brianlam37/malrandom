@@ -1,6 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+	useState,
+	useEffect,
+	useRef,
+	useContext,
+	useCallback,
+} from 'react';
 import axios from 'axios';
 import UserProfile from './UserProfile';
+import { MessageContext } from '../App';
 //Component to switch users
 const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 	const [malUser, setUser] = useState('');
@@ -8,11 +15,22 @@ const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 	const [searchData, setSearchData] = useState(null);
 	const [isSearchLoading, setSearchLoader] = useState(false);
 	const [clicked, setClicked] = useState(false);
+	const { setMessage } = useContext(MessageContext);
 	let timeOut = useRef();
+	const messageCallback = useCallback(
+		(message) => {
+			setMessage(message);
+		},
+		[setMessage]
+	);
 	useEffect(() => {
+		let mounted = true;
 		timeOut.current = setTimeout(() => {
-			setShow(false);
+			if (mounted) {
+				setShow(false);
+			}
 		}, 2000);
+		return () => (mounted = false);
 	}, [show, timeOut]);
 	const handleSearch = (e) => {
 		e.preventDefault();
@@ -38,8 +56,8 @@ const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 					} else {
 						setSearchLoader(false);
 						setSearchData(null);
+						messageCallback(err.response.data.message);
 					}
-					console.log(err);
 				}
 			}
 		};
@@ -47,7 +65,7 @@ const DashboardForm = ({ setAnimeData, setMangaData, setUserData }) => {
 		return () => {
 			source.cancel();
 		};
-	}, [isSearchLoading, malUser]);
+	}, [isSearchLoading, malUser, messageCallback]);
 	const handleSetUser = () => {
 		localStorage.setItem('malRandomUser', searchData.username);
 		if (localStorage.getItem('malRandomUser') === searchData.username) {

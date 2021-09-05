@@ -1,15 +1,12 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import axios from 'axios';
-
+import { UserContext } from './Dashboard';
+import { MessageContext } from '../App';
 //To get a random series on the dashboard
-const RandomButton = ({
-	type,
-	setRandom,
-	setLoader,
-	lastWord,
-	setData,
-	userData,
-}) => {
+const RandomButton = (props) => {
+	const { type, setRandom, setLoader, lastWord, setData } = props;
+	const { userData } = useContext(UserContext);
+	const { setMessage } = useContext(MessageContext);
 	const [clicked, setClicked] = useState(false);
 	const randomCallback = useCallback(
 		(random) => {
@@ -18,41 +15,41 @@ const RandomButton = ({
 		[setRandom]
 	);
 	const dataCallback = useCallback(
-		(random) => {
-			setData(random);
+		(data) => {
+			setData(data);
 		},
 		[setData]
 	);
 	const loaderCallback = useCallback(
-		(random) => {
-			setLoader(random);
+		(loader) => {
+			setLoader(loader);
 		},
 		[setLoader]
 	);
 	const clickCallback = useCallback(
-		(random) => {
-			setClicked(random);
+		(click) => {
+			setClicked(click);
 		},
 		[setClicked]
+	);
+	const messageCallback = useCallback(
+		(message) => {
+			setMessage(message);
+		},
+		[setMessage]
 	);
 	useEffect(() => {
 		const source = axios.CancelToken.source();
 
 		const getRandom = async () => {
-			randomCallback(true);
-			loaderCallback(true);
 			const listLength = userData[`${type}_stats`][`plan_to_${lastWord}`];
 			try {
-				const randomIndex = Math.floor(Math.random() * listLength) + 1;
+				randomCallback(true);
+				loaderCallback(true);
 
-				const pageNumber = Math.ceil(randomIndex / 300);
-
-				let pageIndex;
-				if (pageNumber > 1) {
-					pageIndex = pageNumber * 300 - randomIndex - 1;
-				} else {
-					pageIndex = randomIndex - 1;
-				}
+				const pageNumber = Math.ceil(
+					Math.random() * Math.ceil(listLength / 300)
+				);
 
 				const response = await axios.get(
 					`https://api.jikan.moe/v3/user/${userData.username}/${type}list/planto${lastWord}/${pageNumber}`,
@@ -60,7 +57,16 @@ const RandomButton = ({
 						cancelToken: source.token,
 					}
 				);
-				const randomSeries = response.data[type][pageIndex];
+				const randomIndex = Math.floor(
+					Math.random() * response.data[type].length
+				);
+				const randomSeries = response.data[type][randomIndex];
+				console.log(
+					type,
+					randomIndex,
+					pageNumber,
+					response.data[type].length
+				);
 				const seriesData = await axios.get(
 					`https://api.jikan.moe/v3/${type}/${randomSeries.mal_id}`,
 					{
@@ -74,9 +80,10 @@ const RandomButton = ({
 			} catch (err) {
 				if (axios.isCancel(err)) {
 				} else {
+					console.log(err);
+					messageCallback(err.response.data.message);
 					loaderCallback(false);
 					clickCallback(false);
-					console.log(err);
 				}
 			}
 		};
@@ -96,11 +103,12 @@ const RandomButton = ({
 		randomCallback,
 		clicked,
 		clickCallback,
+		messageCallback,
 	]);
 
 	return (
 		<button
-			className='dark-button button width100'
+			className='dark-button button width100 capital-text'
 			onClick={() => setClicked(true)}
 			disabled={!userData}
 		>

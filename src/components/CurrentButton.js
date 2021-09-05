@@ -34,7 +34,7 @@ const CurrentButton = ({
 
 	return (
 		<button
-			className='dark-button button width100'
+			className='dark-button button width100 capital-text'
 			onClick={() => switchCurrent()}
 			disabled={!ifHasCurrent()}
 		>

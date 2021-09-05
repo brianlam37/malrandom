@@ -4,7 +4,8 @@ import CurrentButton from './CurrentButton';
 import RandomButton from './RandomButton';
 import DashboardSeries from './DashboardSeries';
 //Component which holds all of the dashboard info per series
-const DashboardColumn = ({ setData, data, type, item, word, userData }) => {
+const DashboardColumn = (props) => {
+	const { setData, data, type, item, word } = props;
 	const [isLoading, setLoader] = useState(false);
 	const [isRandom, setIsRandom] = useState(false);
 	const [current, setCurrent] = useState();
@@ -75,7 +76,6 @@ const DashboardColumn = ({ setData, data, type, item, word, userData }) => {
 				setRandom={setIsRandom}
 				setData={setData}
 				lastWord={word}
-				userData={userData}
 			/>
 		</div>
 	);

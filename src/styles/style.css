@@ -351,6 +351,10 @@ body {
   font-size: 2rem;
 }
 
+.capital-text {
+  text-transform: capitalize;
+}
+
 .user-info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -540,6 +544,10 @@ body {
 .user-form div button:hover {
   -webkit-box-shadow: 0 0 0 1px #fff;
           box-shadow: 0 0 0 1px #fff;
+}
+
+.dashboard-series-random-current {
+  text-transform: capitalize;
 }
 
 .dashboard-settings {
@@ -1021,5 +1029,22 @@ body.modal-open {
 
 .modal-background .modal-header i {
   cursor: pointer;
+}
+
+.error-message {
+  position: fixed;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #832424;
+  border: 1px solid #832424;
+  background-color: #dd6f6f;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 5px;
+  width: 100vw;
+  padding: 0.5rem;
 }
 /*# sourceMappingURL=style.css.map */

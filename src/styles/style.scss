@@ -259,6 +259,10 @@ body {
 	font-size: 2rem;
 }
 
+.capital-text {
+	text-transform: capitalize;
+}
+
 //User Dashboard
 
 .user-info {
@@ -393,7 +397,9 @@ body {
 		}
 	}
 }
-
+.dashboard-series-random-current {
+	text-transform: capitalize;
+}
 .dashboard-settings {
 	display: flex;
 	justify-content: flex-start;
@@ -725,4 +731,17 @@ body.modal-open {
 			cursor: pointer;
 		}
 	}
+}
+
+.error-message {
+	position: fixed;
+	bottom: 0;
+	display: flex;
+	color: rgb(131, 36, 36);
+	border: 1px solid rgb(131, 36, 36);
+	background-color: rgb(221, 111, 111);
+	justify-content: center;
+	border-radius: 5px;
+	width: 100vw;
+	padding: 0.5rem;
 }
